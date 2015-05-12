@@ -75,7 +75,7 @@
         }
     }
     
-    [_matchTextTableView reloadData];
+    [self.matchTextTableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -87,7 +87,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [_matchedItems count];
+    return [self.matchedItems count];
 }
 
 
@@ -104,7 +104,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:MatchedIdentifier];
     }
-    AutocompleteItem *item = [_matchedItems objectAtIndex:indexPath.row];
+    AutocompleteItem *item = [self.matchedItems objectAtIndex:indexPath.row];
     cell.textLabel.attributedText = [self formatSpannableText:item];
     return cell;
 }
