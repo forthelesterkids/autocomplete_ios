@@ -25,7 +25,7 @@
 }
 
 -(AutocompleteItem *)matchStrings{
-    return [self stringsMatch:_masterCompareString matchTerm:_masterMatchString];
+    return [self stringsMatch:self.masterCompareString matchTerm:self.masterMatchString];
 }
 
 -(AutocompleteItem *)stringsMatch:(NSString *)compareString matchTerm:(NSString *)matchTerm{
@@ -38,7 +38,7 @@
         return nil;
     }
     else {
-        return [self matchIndexOf:_masterCompareString matchTerm:_masterMatchString];
+        return [self matchIndexOf:self.masterCompareString matchTerm:self.masterMatchString];
     }
     return nil;
 
