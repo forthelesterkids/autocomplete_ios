@@ -14,7 +14,8 @@
     
     self = [super init];
     
-    if(self){
+    if(self)
+    {
         _lower = lower;
         _upper = upper;
     }

@@ -21,38 +21,47 @@
 
 @implementation ACViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self generateRandomStrings];
 }
 
-- (void)generateRandomStrings{
-    for(int i =0; i < 100000; i++){
+- (void)generateRandomStrings
+{
+    for(int i =0; i < 100000; i++)
+    {
         NSString *random = [NSString randomStringWithLength:30];
         [self.dataSource addObject:random];
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
--(NSMutableArray *)dataSource{
-    if(!_dataSource){
+-(NSMutableArray *)dataSource
+{
+    if(!_dataSource)
+    {
         _dataSource = [NSMutableArray new];
     }
     
     return _dataSource;
 }
 
--(NSMutableArray *)matchedItems{
-    if(!_matchedItems){
+-(NSMutableArray *)matchedItems
+{
+    if(!_matchedItems)
+    {
         _matchedItems = [NSMutableArray new];
     }
     
     return _matchedItems;
 }
-- (IBAction)matchStrings:(UITextField *)sender {
+- (IBAction)matchStrings:(UITextField *)sender
+{
     NSString *stringToMatch = sender.text;
 
     [self.matchedItems removeAllObjects];
@@ -60,16 +69,13 @@
     {
         AutocompleteMatcher *matcher = [[AutocompleteMatcher alloc] initWithMatchingStrings:matchString matchString:stringToMatch];
         AutocompleteItem *item = [matcher matchStrings];
-        if(item){
+        if(item)
+        {
             [self.matchedItems addObject:item];
         }
     }
     
     [_matchTextTableView reloadData];
-}
-
-- (IBAction)matchText:(UITextField *)sender {
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -78,7 +84,8 @@
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     
     return [_matchedItems count];
 }

@@ -12,11 +12,15 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 @implementation NSString (Util)
 
-- (long) indexOf:(NSString *)text {
+- (long) indexOf:(NSString *)text
+{
     NSRange range = [self rangeOfString:text];
-    if (range.length != NSNotFound) {
+    if (range.length != NSNotFound)
+    {
         return range.location;
-    } else {
+    }
+    else
+    {
         return -1;
     }
 }
@@ -31,8 +35,10 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     for (NSUInteger i = fromRange; i < length; i++)
     {
-        if(i >= fromRange){
-            if(charAtIndex == buffer[i]){
+        if(i >= fromRange)
+        {
+            if(charAtIndex == buffer[i])
+            {
                 return i;
             }
         }
@@ -41,11 +47,13 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return -1;
 }
 
-+(NSString *)randomStringWithLength:(int)len {
++(NSString *)randomStringWithLength:(int)len
+{
     
     NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
     
-    for (int i=0; i<len; i++) {
+    for (int i=0; i<len; i++)
+    {
         [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
     }
     
