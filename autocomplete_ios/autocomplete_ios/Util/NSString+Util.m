@@ -29,7 +29,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     [self getCharacters:buffer range:NSMakeRange(0, length)];
     
-    for (NSUInteger i = 0; i < length; i++)
+    for (NSUInteger i = fromRange; i < length; i++)
     {
         if(i >= fromRange){
             if(charAtIndex == buffer[i]){
