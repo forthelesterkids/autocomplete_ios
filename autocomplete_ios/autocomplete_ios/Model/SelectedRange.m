@@ -10,12 +10,11 @@
 
 @implementation SelectedRange
 
--(instancetype)initWithLowerAndUpper:(int)lower upper:(int)upper{
+-(instancetype)initWithLowerAndUpper:(long)lower upper:(long)upper{
     
     self = [super init];
     
     if(self){
-    
         _lower = lower;
         _upper = upper;
     }

@@ -11,8 +11,9 @@
 #import "SelectedRange.h"
 
 @interface ACViewController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *matchTextTableView;
-@property (nonatomic, strong) NSArray *matchedItems;
+@property (nonatomic, strong) NSMutableArray *matchedItems;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 
@@ -43,20 +44,28 @@
     
     return _dataSource;
 }
+
+-(NSMutableArray *)matchedItems{
+    if(!_matchedItems){
+        _matchedItems = [NSMutableArray new];
+    }
+    
+    return _matchedItems;
+}
 - (IBAction)matchStrings:(UITextField *)sender {
     NSString *stringToMatch = sender.text;
-    NSDate *startDate = [NSDate new];
+
+    [self.matchedItems removeAllObjects];
     for (NSString *matchString in self.dataSource)
     {
         AutocompleteMatcher *matcher = [[AutocompleteMatcher alloc] initWithMatchingStrings:matchString matchString:stringToMatch];
         AutocompleteItem *item = [matcher matchStrings];
         if(item){
-            //NSLog(@"Strings match %@", item.autocompleteTerm);
+            [self.matchedItems addObject:item];
         }
     }
-    double timePassed_ms = [startDate timeIntervalSinceNow] * -1000.0;
     
-    NSLog(@"Total performace %f", timePassed_ms);
+    [_matchTextTableView reloadData];
 }
 
 - (IBAction)matchText:(UITextField *)sender {
@@ -79,20 +88,29 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *MyIdentifier = @"MyIdentifier";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-//    
-//    if (cell == nil)
-//    {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-//                                       reuseIdentifier:MyIdentifier] autorelease];
-//    }
-//    [cell.imageView setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
-//                   placeholderImage:[UIImage imageNamed:@"placeholder"]];
-//    cell.textLabel.text = @"My Text";
-//    return cell;
-    return nil;
+    static NSString *MatchedIdentifier = @"MatchedIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MatchedIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:MatchedIdentifier];
+    }
+    AutocompleteItem *item = [_matchedItems objectAtIndex:indexPath.row];
+    cell.textLabel.attributedText = [self formatSpannableText:item];
+    return cell;
+}
+
+-(NSAttributedString *)formatSpannableText:(AutocompleteItem *)spannable
+{
+    
+    NSMutableAttributedString * string = [[NSMutableAttributedString alloc] initWithString:spannable.autocompleteTerm];
+    for(SelectedRange *range in spannable.selectedRanges){
+        [string addAttribute:NSBackgroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(range.lower,1)];
+    
+    }
+    return string;
 }
 
 @end
