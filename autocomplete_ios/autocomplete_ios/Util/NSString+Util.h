@@ -1,5 +1,5 @@
 //
-//  NSObject+NSString_Util.h
+//  NSString+Util.h
 //  autocomplete_ios
 //
 //  Created by Christopher Lester on 5/11/15.
